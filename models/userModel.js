@@ -19,6 +19,7 @@ const userSchema = new Schema({
     required: true,
   },
   discription: {
+    // <-- Should likely be "description" instead of "discription"
     type: String,
     required: true,
   },
@@ -31,16 +32,18 @@ const userSchema = new Schema({
 userSchema.statics.signup = async function (
   email,
   password,
-  discription,
   name,
+  discription,
   imgUrl
 ) {
-  if (!email || !password) {
+  console.log(discription);
+  if (!email || !password || !name || !discription || !imgUrl) {
     throw Error("All fields must be filled");
   }
   if (!validator.isEmail(email)) {
     throw Error("Email not valid");
   }
+  console.log(discription);
   const isStrongPassword = validator.isStrongPassword(password, {
     minLength: 6,
     minLowercase: 0,
